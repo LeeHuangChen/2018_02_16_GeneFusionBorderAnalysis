@@ -1,5 +1,5 @@
 bordersFolder = "InputFiles/Borders"
-bordersAppend = ".fasta.cpickle"
+bordersAppend = ".fasta_myBorders.cpickle"
 fusionInfoFolder = "InputFiles/FusionInfo"
 fusionInfoAppend = "_fusionLog.txt"
 
