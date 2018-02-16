@@ -7,3 +7,4 @@ fusionInfoAppend = "_fusionLog.txt"
 # b remove bordersAppend == c remove fusionInfoAppend
 
 resultFolder = "Results"
+splitResultFile = "Results/splitPointResults.txt"

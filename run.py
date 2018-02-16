@@ -1,6 +1,7 @@
 import Configurations as conf
 import os
 from cPickle import load
+from src import functions as func, util
 
 
 # converts the text information on fusion InfoDir to a dictionary
@@ -23,14 +24,23 @@ def readFusionInfo(fusionInfoDir):
 def main():
     borderFiles = os.listdir(conf.bordersFolder)
 
-    for borderFile in borderFiles:
-        borderDir = os.path.join(conf.bordersFolder, borderFile)
-        borderDict = load(open(borderDir, "rb"))
+    util.generateDirectories(conf.resultFolder)
+    with open(conf.splitResultFile, "w") as resultFile:
+        resultFile.write("testcase\tavgDist\twrongNumBordersOnSplitProt\tmultBorderOnFamilyProtein\n")
+        for borderFile in borderFiles:
+            borderDir = os.path.join(conf.bordersFolder, borderFile)
+            borderDict = load(open(borderDir, "rb"))
 
-        fusionInfoFile = borderFile.replace(conf.bordersAppend, conf.fusionInfoAppend)
-        fusionInfoDir = os.path.join(conf.fusionInfoFolder, fusionInfoFile)
+            # fusionInfoFile = borderFile.replace(conf.bordersAppend, conf.fusionInfoAppend)
+            # fusionInfoDir = os.path.join(conf.fusionInfoFolder, fusionInfoFile)
+            #
+            # fusionDict = readFusionInfo(fusionInfoDir)
 
-        fusionDict = readFusionInfo(fusionInfoDir)
+            avgDist, wrongNumBordersOnSplitProt, multBorderOnFamilyProtein = func.compareSplitPoints(borderDict)
+
+            testcase = borderFile.replace(conf.bordersAppend, "")
+            resultFile.write(testcase+"\t"+str(avgDist)+"\t"+str(wrongNumBordersOnSplitProt)+"\t" +
+                             str(multBorderOnFamilyProtein)+"\n")
 
 
 
