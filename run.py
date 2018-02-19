@@ -21,7 +21,7 @@ def readFusionInfo(fusionInfoDir):
     return fusionDict
 
 
-def main():
+def compareSplitPoints():
     borderFiles = os.listdir(conf.bordersFolder)
 
     util.generateDirectories(conf.resultFolder)
@@ -43,7 +43,22 @@ def main():
                              str(multBorderOnFamilyProtein)+"\n")
 
 
+def checkBorders():
+    borderFiles = os.listdir(conf.bordersFolder)
+    for borderFile in borderFiles:
+        borderDir = os.path.join(conf.bordersFolder, borderFile)
+        borderDict = load(open(borderDir, "rb"))
 
+        protLenFile = borderFile.replace(conf.bordersAppend, conf.protLenAppend)
+        protLenDir = os.path.join(conf.protLenFolder, protLenFile)
+        protLenDict = load(open(protLenDir, "rb"))
+
+        func.checkBorderDefinitions(borderDict, protLenDict)
+
+
+def main():
+    #compareSplitPoints()
+    checkBorders()
 
 
 if __name__ == '__main__':
